@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -41,4 +42,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the farms for the user.
+     */
+    public function farms(): HasMany
+    {
+        return $this->hasMany(Farm::class, 'user_id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->where('role', 'admin');
+    }
+
+    // Scope
+    public function scopeGetTsUsers()
+    {
+        return $this->query()
+            ->where('role', 'ts/ppl')
+            ->select('id', 'name')
+            ->get();
+    }
 }

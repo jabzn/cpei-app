@@ -17,20 +17,28 @@ class UserSeeder extends Seeder
     {
         $users = [
             [
-                'name' => 'Jabal Nur',
+                'name'  => 'Jabal Nur',
                 'email' => 'Jabalnoer@gmail.com',
+                'role'  => 'admin',
             ],
             [
-                'name' => 'Test Name',
-                'email' => 'test@gmail.com',
+                'name'  => 'Jusman',
+                'email' => 'jusman@gmail.com',
+                'role'  => 'ts/ppl',
             ],
+            [
+                'name'  => 'Muhammad Lutfi',
+                'email' => 'lutfi@gmail.com',
+                'role'  => 'ts/ppl',
+            ],
+
         ];
 
         foreach ($users as $user) {
-            User::factory()
-            ->create([
+            User::factory()->create([
                 'name'  => $user['name'],
                 'email' => $user['email'],
+                'role'  => $user['role'],
             ]);
         }
     }
